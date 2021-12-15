@@ -1,0 +1,8 @@
+{
+  "name": "QuizMeBE",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "repository": "https://github.com/team-404-hcmus/QuizMeBE.git",
+  "author": "NguyenVux <rockmanx000@gmail.com>",
+  "license": "MIT"
+}
