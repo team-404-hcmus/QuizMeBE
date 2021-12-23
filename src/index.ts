@@ -4,7 +4,7 @@ import { Authenticate, Login } from "./middleWare/Authentication";
 import DB from './database';
 import { Register } from "./middleWare/Register";
 const app = Express();
-
+import bodyParser  from "body-parser";
 (async function(){
 await DB.ConnectDB();
 app.use(function(req, res, next) {
@@ -14,8 +14,8 @@ app.use(function(req, res, next) {
 });
 
 
-app.get('/api/',Authenticate);
-app.get('/api/login',Login);
+app.post('/api/auth',bodyParser.json(),Authenticate);
+app.post('/api/login',bodyParser.json(),Login);
 app.get('/api/register',Register);
 
 app.use((req,res,next)=>{
