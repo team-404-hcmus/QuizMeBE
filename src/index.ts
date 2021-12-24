@@ -5,6 +5,7 @@ import DB from './database';
 import { Register } from "./middleWare/Register";
 const app = Express();
 import bodyParser  from "body-parser";
+import { ChangePassword } from "./middleWare/ChangePassword";
 (async function(){
 await DB.ConnectDB();
 app.use(function(req, res, next) {
@@ -14,7 +15,7 @@ app.use(function(req, res, next) {
 });
 
 
-app.post('/api/auth',bodyParser.json(),Authenticate);
+app.post('/api/changePassword',bodyParser.json(),Authenticate,ChangePassword);
 app.post('/api/login',bodyParser.json(),Login);
 app.get('/api/register',Register);
 

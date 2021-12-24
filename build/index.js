@@ -10,6 +10,7 @@ const database_1 = __importDefault(require("./database"));
 const Register_1 = require("./middleWare/Register");
 const app = (0, express_1.default)();
 const body_parser_1 = __importDefault(require("body-parser"));
+const ChangePassword_1 = require("./middleWare/ChangePassword");
 (async function () {
     await database_1.default.ConnectDB();
     app.use(function (req, res, next) {
@@ -17,7 +18,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
     });
-    app.post('/api/auth', body_parser_1.default.json(), Authentication_1.Authenticate);
+    app.post('/api/changePassword', body_parser_1.default.json(), Authentication_1.Authenticate, ChangePassword_1.ChangePassword);
     app.post('/api/login', body_parser_1.default.json(), Authentication_1.Login);
     app.get('/api/register', Register_1.Register);
     app.use((req, res, next) => {
