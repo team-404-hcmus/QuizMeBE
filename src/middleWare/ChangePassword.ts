@@ -1,7 +1,7 @@
 import Express  from "express";
 import db from "../database";
 async function ChangePassword(req:Express.Request,res:Express.Response,next:Express.NextFunction){
-	const collection  = db.getCollection();
+	const collection  = db.getUserCollection();
 	const data = await collection.findOne({loginKey:req.body.key,pwd:req.body.pwd});
 	if(!data)
 	{

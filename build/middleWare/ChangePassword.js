@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChangePassword = void 0;
 const database_1 = __importDefault(require("../database"));
 async function ChangePassword(req, res, next) {
-    const collection = database_1.default.getCollection();
+    const collection = database_1.default.getUserCollection();
     const data = await collection.findOne({ loginKey: req.body.key, pwd: req.body.pwd });
     if (!data) {
         res.status(401);

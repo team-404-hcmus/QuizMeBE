@@ -8,7 +8,7 @@ const database_1 = __importDefault(require("../database"));
 async function Authenticate(req, res, next) {
     console.log(req.body);
     req.body.key += "";
-    let data = await database_1.default.getCollection().findOne({ loginKey: req.body.key });
+    let data = await database_1.default.getUserCollection().findOne({ loginKey: req.body.key });
     if (!data) {
         res.status(401);
         res.write("failed to authenticate");
@@ -20,7 +20,7 @@ async function Authenticate(req, res, next) {
 exports.Authenticate = Authenticate;
 async function Login(req, res, next) {
     // bodyParser.json(req.body);'
-    let data = await database_1.default.getCollection().findOne({ username: req.body.username, pwd: req.body.pwd });
+    let data = await database_1.default.getUserCollection().findOne({ username: req.body.username, pwd: req.body.pwd });
     if (!data) {
         res.status(401);
         res.write("wrong user name or password");
@@ -29,7 +29,7 @@ async function Login(req, res, next) {
     }
     else {
         const key = "" + Date.now();
-        await database_1.default.getCollection().updateOne({ _id: data._id }, { $set: { loginKey: key } });
+        await database_1.default.getUserCollection().updateOne({ _id: data._id }, { $set: { loginKey: key } });
         res.write(key);
         next();
     }

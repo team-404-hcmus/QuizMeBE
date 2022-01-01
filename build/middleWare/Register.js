@@ -7,13 +7,13 @@ exports.Register = void 0;
 const database_1 = __importDefault(require("../database"));
 async function Register(req, res, next) {
     try {
-        let data = await database_1.default.getCollection().findOne({ username: "TUAN" });
+        let data = await database_1.default.getUserCollection().findOne({ username: "TUAN" });
         if (!!data) {
-            await database_1.default.getCollection().updateOne({ _id: data._id }, { $set: { loginKey: "" + Date.now() } });
+            await database_1.default.getUserCollection().updateOne({ _id: data._id }, { $set: { loginKey: "" + Date.now() } });
             console.log(data);
             throw "";
         }
-        await database_1.default.getCollection().insertOne({ username: "TUAN", pwd: "123" });
+        await database_1.default.getUserCollection().insertOne({ username: "TUAN", pwd: "123" });
         res.send("Successfully created ");
     }
     finally {

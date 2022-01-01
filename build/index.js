@@ -7,10 +7,11 @@ const config_1 = require("./config");
 const express_1 = __importDefault(require("express"));
 const Authentication_1 = require("./middleWare/Authentication");
 const database_1 = __importDefault(require("./database"));
-const Register_1 = require("./middleWare/Register");
 const app = (0, express_1.default)();
 const body_parser_1 = __importDefault(require("body-parser"));
 const ChangePassword_1 = require("./middleWare/ChangePassword");
+const UserInfo_1 = require("./middleWare/UserInfo");
+const Question_1 = require("./middleWare/Question");
 (async function () {
     await database_1.default.ConnectDB();
     app.use(function (req, res, next) {
@@ -18,10 +19,13 @@ const ChangePassword_1 = require("./middleWare/ChangePassword");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
     });
-    app.post('/api/changePassword', body_parser_1.default.json(), Authentication_1.Authenticate, ChangePassword_1.ChangePassword);
-    app.post('/api/login', body_parser_1.default.json(), Authentication_1.Login);
-    app.get('/api/register', Register_1.Register);
+    app.use(body_parser_1.default.json());
+    app.post('/api/changePassword', Authentication_1.Authenticate, ChangePassword_1.ChangePassword);
+    app.post('/api/login', Authentication_1.Login);
+    app.post('/api/getInfo', UserInfo_1.getUserInfo);
+    app.post('/api/Question', Question_1.getQuestion);
     app.use((req, res, next) => {
+        console.log("Request sended");
         res.end();
     });
     app.listen(config_1.appConfig.PORT, () => {

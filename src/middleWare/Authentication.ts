@@ -4,7 +4,7 @@ import db from "../database";
 async function Authenticate(req:Express.Request,res:Express.Response, next: Express.NextFunction){
 	console.log(req.body);
 	req.body.key += "";
-	let data = await db.getCollection().findOne({loginKey:req.body.key});
+	let data = await db.getUserCollection().findOne({loginKey:req.body.key});
 	if(!data)
 	{
 		res.status(401);
@@ -16,7 +16,7 @@ async function Authenticate(req:Express.Request,res:Express.Response, next: Expr
 }
 async function Login(req:Express.Request,res:Express.Response, next: Express.NextFunction){
 	// bodyParser.json(req.body);'
-	let data = await db.getCollection().findOne({username:req.body.username,pwd:req.body.pwd});
+	let data = await db.getUserCollection().findOne({username:req.body.username,pwd:req.body.pwd});
 	
 	if(!data)
 	{
@@ -27,7 +27,7 @@ async function Login(req:Express.Request,res:Express.Response, next: Express.Nex
 	}else{
 
 		const key = ""+Date.now();
-		await db.getCollection().updateOne({_id:data._id},{$set:{loginKey:key}});
+		await db.getUserCollection().updateOne({_id:data._id},{$set:{loginKey:key}});
 		res.write(key);
 		next();
 	}
