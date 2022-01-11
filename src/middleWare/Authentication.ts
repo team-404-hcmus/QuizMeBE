@@ -12,6 +12,7 @@ async function Authenticate(req:Express.Request,res:Express.Response, next: Expr
 		res.end();
 		return;
 	}
+	res.locals = {info: data};
 	next();
 }
 async function Login(req:Express.Request,res:Express.Response, next: Express.NextFunction){
