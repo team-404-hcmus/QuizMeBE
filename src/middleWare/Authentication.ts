@@ -2,7 +2,6 @@ import Express from "express";
 import db from "../database";
 
 async function Authenticate(req:Express.Request,res:Express.Response, next: Express.NextFunction){
-	console.log(req.body);
 	req.body.key += "";
 	let data = await db.getUserCollection().findOne({loginKey:req.body.key});
 	if(!data)

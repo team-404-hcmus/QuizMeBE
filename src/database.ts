@@ -2,7 +2,7 @@ import { Collection, Db, MongoClient } from 'mongodb';
 import {dbConfig} from './config';
 import fs from 'fs';
 import path from 'path'
-const credentials = path.join(__dirname,dbConfig.cert);
+const credentials = path.resolve('./',dbConfig.cert);
 const client = new MongoClient('mongodb+srv://cluster0.gbld1.mongodb.net/myFirstDatabase?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority', {
   sslKey: credentials,
   sslCert: credentials

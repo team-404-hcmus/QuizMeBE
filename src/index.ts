@@ -6,8 +6,9 @@ import { Register } from "./middleWare/Register";
 const app = Express();
 import bodyParser  from "body-parser";
 import { ChangePassword } from "./middleWare/ChangePassword";
-import { getUserInfo } from "./middleWare/UserInfo";
+import { getAllUserInfo, getUserInfo } from "./middleWare/UserInfo";
 import { getAllQuestion, getQuestion } from "./middleWare/Question";
+import { createUser } from "./middleWare/CreateUser";
 (async function(){
 await DB.ConnectDB();
 app.use(function(req, res, next) {
@@ -21,8 +22,9 @@ app.use(bodyParser.json());
 app.post('/api/changePassword',Authenticate,ChangePassword);
 app.post('/api/login',Login);
 app.post('/api/getInfo',getUserInfo);
+app.post('/api/getAllUser',Authenticate,getAllUserInfo);
 app.post('/api/Question',getQuestion);
-
+app.post('/api/CreateUser',Authenticate,createUser);
 app.use((req,res,next)=>{
   console.log("Request sended");
 	res.end();

@@ -24,7 +24,7 @@ async function getAllQuestion(req:Express.Request,res:Express.Response,next:Expr
 	if(req.body.QuestionID)
 	{
 		const qsCollection = db.getQuestionCollection();
-		const data = qsCollection.find({}, {projection:{name:1}}); 
+		const data = qsCollection.find({}, {projection:{name:1}});
 		res.write(JSON.stringify(await data.toArray()));
 		next();
 	}
