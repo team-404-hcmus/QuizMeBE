@@ -28,7 +28,7 @@ async function getAllUserInfo(req:Express.Request,res:Express.Response,next:Expr
 		res.end();
 		return;
 	}
-	const data = await db.getUserCollection().find({}, {projection:{_id:0,username:1,role:1,pwd:1}});
+	const data = await db.getUserCollection().find({}, {projection:{_id:0}});
 	res.write(JSON.stringify(await data.toArray()));
 
 	next();

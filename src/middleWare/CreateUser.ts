@@ -11,9 +11,9 @@ async function createUser(req:Express.Request,res:Express.Response, next: Expres
 		}
 	});
 	const data = Object.keys(req.body);
-	const keys = ['username','pwd','role'];
+	const keys = ['username','pwd','role','dob','gender',"fullname"];
 	console.log(req.body);
-	if(data.join(',') !==  keys.join(','))
+	if( !data.every((e: string)=>  keys.includes(e) ))
 	{
 		res.status(400);
 		res.send('wrong format');
