@@ -8,7 +8,7 @@ import bodyParser  from "body-parser";
 import { ChangePassword } from "./middleWare/ChangePassword";
 import { getAllUserInfo, getUserInfo } from "./middleWare/UserInfo";
 import { getAllQuestion, getQuestion } from "./middleWare/Question";
-import { createUser } from "./middleWare/CreateUser";
+import { createUser, DeleteUser, EditUser } from "./middleWare/CreateUser";
 (async function(){
 await DB.ConnectDB();
 app.use(function(req, res, next) {
@@ -24,6 +24,9 @@ app.post('/api/login',Login);
 app.post('/api/getInfo',getUserInfo);
 app.post('/api/getAllUser',Authenticate,getAllUserInfo);
 app.post('/api/Question',getQuestion);
+app.post('/api/AddQuestion');
+app.post('/api/DeleteUser',Authenticate,DeleteUser);
+app.post('/api/EditUser',Authenticate,EditUser);
 app.post('/api/CreateUser',Authenticate,createUser);
 app.use((req,res,next)=>{
   console.log("Request sended");

@@ -35,7 +35,33 @@ async function createUser(req:Express.Request,res:Express.Response, next: Expres
 	db.getUserCollection().insertOne(req.body);
 	next();
 }
+function EditUser(req:Express.Request,res:Express.Response, next: Express.NextFunction){
+	const username = req.body.username;
+	if(username){
+		delete req.body.username;
+		delete req.body.key;
+		db.getUserCollection().updateOne({username:username},{$set:{...req.body}}) 
+		next();
+		return;
+	}
+	res.status(400);
+	res.send("wrong format");
+	return;
+}
+function DeleteUser(req:Express.Request,res:Express.Response, next: Express.NextFunction){
+	const username = req.body.username;
+	if(username){
+		db.getUserCollection().deleteOne({username:username});
+		next();
+		return;
+	}
+	res.status(400);
+	res.send("wrong format");
+	return;
 
+}
 export{
+	DeleteUser,
+	EditUser,
 	createUser	
 }
