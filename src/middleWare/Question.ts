@@ -19,24 +19,16 @@ async function getQuestion(req:Express.Request,res:Express.Response,next:Express
 	next();
 
 }
-async function getAllQuestion(req:Express.Request,res:Express.Response,next:Express.NextFunction)
+async function addQuestion(req:Express.Request,res:Express.Response,next:Express.NextFunction)
 {
-	if(req.body.QuestionID)
+	if(req.body.Question)
 	{
-		const qsCollection = db.getQuestionCollection();
-		const data = qsCollection.find({}, {projection:{name:1}});
-		res.write(JSON.stringify(await data.toArray()));
-		next();
+		db.getQuestionCollection().insertOne(req.body.Question);
 	}
-	else{
-		res.status(404);
-		res.write('wrong format');
-		res.end();
-		return;
-	}
+	next();
 }
 
 export  {
 	getQuestion,
-	getAllQuestion
+	addQuestion
 }

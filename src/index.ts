@@ -7,7 +7,7 @@ const app = Express();
 import bodyParser  from "body-parser";
 import { ChangePassword } from "./middleWare/ChangePassword";
 import { getAllUserInfo, getUserInfo } from "./middleWare/UserInfo";
-import { getAllQuestion, getQuestion } from "./middleWare/Question";
+import { addQuestion, getQuestion } from "./middleWare/Question";
 import { createUser, DeleteUser, EditUser } from "./middleWare/CreateUser";
 (async function(){
 await DB.ConnectDB();
@@ -24,7 +24,7 @@ app.post('/api/login',Login);
 app.post('/api/getInfo',getUserInfo);
 app.post('/api/getAllUser',Authenticate,getAllUserInfo);
 app.post('/api/Question',getQuestion);
-app.post('/api/AddQuestion');
+app.post('/api/AddQuestion',Authenticate,addQuestion);
 app.post('/api/DeleteUser',Authenticate,DeleteUser);
 app.post('/api/EditUser',Authenticate,EditUser);
 app.post('/api/CreateUser',Authenticate,createUser);
